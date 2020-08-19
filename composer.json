@@ -1,0 +1,22 @@
+{
+    "name": "wilber/ajedrez",
+    "description": "The chess game",
+    "authors": [
+        {
+            "name": "Wilber Pulido",
+            "email": "pulidowilber@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Src\\": "src/",
+            "Test\\": "test/"
+        }
+    },
+    "require": {
+        "phpunit/phpunit": "^8.5"
+    },
+    "scripts": {
+        "test": "./vendor/bin/phpunit"
+    }
+}
