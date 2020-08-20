@@ -88,5 +88,45 @@ final class PawnTest extends TestCase
 
         $this-> assertTrue($moveEat);
     }
+    public function testWhitePawnShoudMoveNegativeVertically()
+    {
+      $pawnWhite = new Pawn('White');
+      $board = [[' ',' ',' '],[' ',' ',' '],[' ',' ',' ']];
+
+      $moveTrue = $pawnWhite->move(1,1,0,1,$board);
+      $moveFalse = $pawnWhite->move(1,1,2,1,$board);
+    
+      $this-> assertFalse($moveFalse);
+      $this-> assertTrue($moveTrue);
+
+    }
+    public function testBackPawnShoudMovePositiveVertically()
+    {
+        $pawnWhite = new Pawn('black');
+        $board = [[' ',' ',' '],[' ',' ',' '],[' ',' ',' ']];
+  
+        $moveTrue = $pawnWhite->move(1,1,2,1,$board);
+        $moveFalse = $pawnWhite->move(1,1,0,1,$board);
+      
+        $this-> assertTrue($moveTrue);
+        $this-> assertFalse($moveFalse);
+  
+      }
+      public function testItNotMovingOutsideTheBoard()
+      {
+        $pawnBlack = new Pawn('black');
+        $pawnWhite = new Pawn('white');
+        $board = [[' ',' ',' '],[' ',' ',' '],[' ',' ',' ']];
+
+        $moveOutsideInit = $pawnWhite->move(3,2,2,2,$board);
+        $moveOutside = $pawnBlack->move(2,2,3,2,$board);
+        $moveOutsideOutside = $pawnBlack->move(3,3,4,3,$board);
+        $moveNegatives = $pawnWhite->move(-1,-1,-2,-1, $board);
+
+        $this-> assertFalse($moveOutside);
+        $this-> assertFalse($moveOutsideInit);
+        $this-> assertFalse($moveOutsideOutside);
+
+      }
     
 }
