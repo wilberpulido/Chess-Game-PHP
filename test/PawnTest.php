@@ -100,13 +100,13 @@ final class PawnTest extends TestCase
       $this-> assertTrue($moveTrue);
 
     }
-    public function testBackPawnShoudMovePositiveVertically()
+    public function testBlackPawnShoudMovePositiveVertically()
     {
-        $pawnWhite = new Pawn('black');
+        $pawnBlack = new Pawn('black');
         $board = [[' ',' ',' '],[' ',' ',' '],[' ',' ',' ']];
   
-        $moveTrue = $pawnWhite->move(1,1,2,1,$board);
-        $moveFalse = $pawnWhite->move(1,1,0,1,$board);
+        $moveTrue = $pawnBlack->move(1,1,2,1,$board);
+        $moveFalse = $pawnBlack->move(1,1,0,1,$board);
       
         $this-> assertTrue($moveTrue);
         $this-> assertFalse($moveFalse);
@@ -126,7 +126,26 @@ final class PawnTest extends TestCase
         $this-> assertFalse($moveOutside);
         $this-> assertFalse($moveOutsideInit);
         $this-> assertFalse($moveOutsideOutside);
+        $this-> assertFalse($moveNegatives);
 
       }
-    
+      public function testPawnMoveTwoSpacesAtTheExit()
+      {
+        $pawnBlack = new Pawn('black');
+        $pawnWhite = new Pawn('white');
+        $board = [[' ',' ',' '],[' ',' ',' '],[' ',' ',' ']];
+
+        $moveTrueWhiteOne = $pawnWhite->move(2,0,0,0,$board);
+        $moveTrueWhiteTwo = $pawnWhite->move(1,0,0,0,$board);
+        $moveTrueBlackOne = $pawnBlack->move(0,0,2,0,$board);
+        $moveTrueBlackTwo = $pawnBlack->move(1,0,2,0,$board);
+
+        $this-> assertTrue($moveTrueWhiteOne);
+        $this-> assertTrue($moveTrueWhiteTwo);
+        $this-> assertTrue($moveTrueBlackOne);
+        $this-> assertTrue($moveTrueBlackTwo);
+
+
+
+      }
 }

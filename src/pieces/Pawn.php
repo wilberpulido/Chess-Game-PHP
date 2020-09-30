@@ -1,14 +1,18 @@
 <?php
 namespace Src\pieces;
+
+use phpDocumentor\Reflection\Types\Boolean;
 use \Src\interfaces\Piece;
 
 class Pawn implements Piece
 {
     private String $color;
+    private bool $firstMovement;
 
     public function __construct(String $color="none")
     {
         $this->color = strtolower($color);
+        $this->firstMovement = true;
     }
 
     public function move(int $x1,int $y1,int $x2,int $y2,array $board)
@@ -26,9 +30,6 @@ class Pawn implements Piece
         if($x1 == $x2){
             return false;
         }
-        if (abs($x1-$x2) != 1) {
-            return false;
-        }
         if($y1 === $y2 && $board[$x2][$y2] !== ' '){
             return false;
         }
@@ -38,11 +39,18 @@ class Pawn implements Piece
         if($y1 !== $y2 && $board[$x2][$y2]->getColor()===$this->color){
             return false;
         }
-        if ($this->color == 'white' && $x1-$x2 == -1) {
+        if ($this->color == 'white' && $x1-$x2 < 0) {
             return false;
         }
-        if ($this->color == 'black' && $x1-$x2 == 1) {
+        if ($this->color == 'black' && $x1-$x2 > 0) {
             return false;
+        }
+        if (($this->firstMovement && abs($x1-$x2) > 2) || (!$this->firstMovement && abs($x1-$x2) > 1)){
+
+            return false;
+        }
+        if ($this->firstMovement) {
+            $this->firstMovement = false;
         }
 
         return true;
